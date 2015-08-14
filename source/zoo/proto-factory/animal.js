@@ -9,8 +9,7 @@ import proto from '../proto/animal';
 function factory (props = {}) {
 
   // create new instance with shared prototype and clone props into instance
-  let instance = Object.assign(Object.create(proto), props);
-  return instance;
+  return Object.assign(Object.create(proto), props);
 }
 
 export default factory;
