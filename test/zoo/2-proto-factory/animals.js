@@ -1,5 +1,5 @@
 import test from 'blue-tape';
-import {animal, tiger, lion} from '../../../source/zoo/2-proto-factories/animals';
+import {animal, tiger, lion} from '../../../source/zoo/2-proto-factory/animals';
 
 // this test is about calling a factory which takes care of creating
 // the new instance, linking to the prototype and cloning specific properties
