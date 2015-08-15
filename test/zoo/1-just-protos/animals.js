@@ -1,5 +1,8 @@
 import test from 'blue-tape';
-import animal from '../../../source/zoo/proto/animal';
+import animal from '../../../source/zoo/1-just-protos/animal';
+
+// this test is about linking the new instance to a prototype and just setting
+// the properties on it
 
 test('animal speaks', (assert) => {
 
@@ -23,15 +26,13 @@ test('lion speaks', (assert) => {
   let actual;
   let expected;
 
-  // Example 1:
-  //
-  // attach delegate prototye to new instance and augment new instance with dynamic object extension
+  // just link the delegate prototye to new instance and augment with dynamic object extension
   let instance = Object.create(animal);
   instance.animalType = 'lion';
   instance.legs = 4;
   instance.sound = 'roar';
 
-  actual = instance.describe(); // delegation to the prototype
+  actual = instance.describe();
   expected = 'lion with 4 legs';
   assert.equal(actual, expected);
 
@@ -47,14 +48,10 @@ test('tiger speaks', (assert) => {
   let actual;
   let expected;
 
-  // Example 2:
-  // same as above but using Object.assign
-
-  let instance = Object.assign(Object.create(animal), {
-    animalType: 'tiger',
-    legs: 4,
-    sound: 'grrr'
-  });
+  let instance = Object.create(animal);
+  instance.animalType = 'tiger';
+  instance.legs = 4;
+  instance.sound = 'grrr';
 
   actual = instance.describe();
   expected = 'tiger with 4 legs';

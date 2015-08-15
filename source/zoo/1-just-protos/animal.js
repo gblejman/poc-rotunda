@@ -1,6 +1,6 @@
 // proto: just a working sample, an examplar object
 
-const proto = {
+const animal = {
 
   // props
 
@@ -19,4 +19,4 @@ const proto = {
   }
 };
 
-export default proto;
+export default animal;

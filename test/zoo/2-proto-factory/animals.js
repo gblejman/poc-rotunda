@@ -1,14 +1,16 @@
 import test from 'blue-tape';
-import animal from '../../../source/zoo/proto-factory/animal';
-import lion from '../../../source/zoo/proto-factory/lion';
-import tiger from '../../../source/zoo/proto-factory/tiger';
+import {animal, tiger, lion} from '../../../source/zoo/2-proto-factories/animals';
+
+// this test is about calling a factory which takes care of creating
+// the new instance, linking to the prototype and cloning specific properties
+// and my custom properties into the new instance
 
 test('animal speaks', (assert) => {
 
   let actual;
   let expected;
-
   let instance = animal();
+
   actual = instance.describe();
   expected = 'animal with 0 legs';
   assert.equal(actual, expected);
@@ -55,3 +57,4 @@ test('tiger speaks', (assert) => {
 
   assert.end();
 });
+
