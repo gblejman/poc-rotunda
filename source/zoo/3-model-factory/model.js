@@ -1,4 +1,4 @@
-// simple model
+import {EventEmitter} from 'events';
 
 const defaults = {
   props: {},
@@ -6,7 +6,7 @@ const defaults = {
 };
 
 /**
- * Creates a model object based on a spec.
+ * Factory function to create a model object based on a spec.
  *
  * Props/Methos are segregated so we can distinguish between them and
  * apply privacy to the props, allowing change detection and cloning, etc
@@ -18,27 +18,35 @@ const defaults = {
  */
 function model ({props, methods} = defaults) {
 
-  // don't copy the props, access by clousure to keep them private
-  const obj = {
+  let attrs = props; // rely on closure to keep attrs private
+
+  const baseModel = {
 
     set (keyValue) {
-      Object.assign(props, keyValue);
+      Object.assign(attrs, keyValue);
+      this.emit('change', keyValue);
       return this;
     },
-
     get (name) {
-      return props[name];
+      return attrs[name];
     },
-
     toJson () {
-      return Object.assign({}, props);
+      return Object.assign({}, attrs);
     }
   };
 
-  // add methods
-  Object.assign(obj, methods);
+  const instance = baseModel;
 
-  return obj;
+  // add methods
+  Object.assign(instance, methods);
+
+  // add emitter functionality to each new object
+  Object.assign(instance, EventEmitter.prototype);
+
+  // add props via setter to trigger events/validation/etc
+  instance.set(props);
+
+  return instance;
 }
 
 export default model;
